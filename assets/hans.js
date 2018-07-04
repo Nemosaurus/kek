@@ -13,6 +13,20 @@
 		let utils = new Utils()
 
 
+
+
+		//Private Functions
+		function playSound(time) {
+			let clickOsc = audioContext.createOscillator();
+			console.log(clickOsc)
+			clickOsc.connect(audioContext.destination);
+			clickOsc.frequency.value = getClickFreq();
+			clickOsc.start(time);
+			clickOsc.stop(time + 0.01);
+
+		}
+
+
 		//Public Functions
 		this.getBPM = function () {
 			return bpm
@@ -25,6 +39,7 @@
 		this.getClickFreq = function () {
 			return clickFreq
 		}
+		let getClickFreq = this.getClickFreq
 
 		this.setClickFreq = function (freq) {
 			clickFreq = freq
@@ -32,23 +47,18 @@
 
 		this.schedule = function () {
 			while (nextNotetime < audioContext.currentTime + 0.01) {
-				nextNotetime += bpmToNoteDurration(); //set bpm here
-				nextNote.innerHTML = nextNotetime;
+				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
+				//nextNote.innerHTML = nextNotetime;
 				playSound(nextNotetime);
 			}
-			timerID = window.setTimeout(scheduler, 50.0);
+			timerID = window.setTimeout(schedule, 50.0);
 		}
+		let schedule = this.schedule
 
 
-		//Private Functions
-		function playSound(time) {
-			let clickOsc = audioContext.createOscillator();
-			clickOsc.connect(audioContext.destination);
-			clickOsc.frequency.value = this.getClickFreq();
-			clickOsc.start(time);
-			clickOsc.stop(time + 0.01);
 
-		}
+
+
 	}
 
 	window.Hans = Hans

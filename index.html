@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>title</title>
+	<title>Dank</title>
 	<link rel="stylesheet" href="assets/style.css">
 	<link rel="stylesheet" href="assets/skeleton.css">
 	<script type="text/javascript" src="assets/hans.js"></script>
@@ -17,27 +17,13 @@
 	<div class="conatiner">
 		<div class="row" id="toolbar">
 			<ul class="nav">
-				<li class="two columns"><button name="button" id="susResBtn">Resume/Suspend Context</button></li>
-				<li class="two columns"><input type="number" id="bpmInput" value="120" /></li>
-				<li class="two columns">
-					<input type="range" min="50" max="5000" id="clickFreq" />
+				<li class="three columns"><button name="button" id="susResBtn">Resume Context</button></li>
+				<li class="three columns">BPM: <input type="number" id="bpmInput" value="120" /></li>
+				<li class="three columns">
+					Frequency of Metronome :<input type="range" min="50" max="5000" id="clickFreq" />
 				</li>
 			</ul>
 		</div>
-
-<!--
-<div class="timeline">
-	asdf
-</div>
--->
-
-
-
-		<p>Audio Context Current Time:</p>
-		<p><span id="clock"></span></p>
-		<p>nextNotetime:</p>
-		<p><span id="nextNote"></span></p>
-
 		<div id="debug"></div>
 	</div>
 

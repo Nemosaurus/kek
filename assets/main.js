@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 	var audioContext = new AudioContext()
+	audioContext.suspend()
 	var utils = new Utils(audioContext)
 	var hans = new Hans(audioContext)
 	var debuger = new Debug(audioContext)
-	debuger.createDebugTable()
 
-	console.log(utils.bpmToNoteDurration(120))
-	hans.setClickFreq(2500)
-	console.log(hans.getClickFreq())
+	debuger.createDebugTable()
+	hans.schedule()
 
 
 
