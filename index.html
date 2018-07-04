@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Dank</title>
-	<link rel="stylesheet" href="assets/style.css">
 	<link rel="stylesheet" href="assets/skeleton.css">
+	<link rel="stylesheet" href="assets/style.css">
 	<script type="text/javascript" src="assets/hans.js"></script>
 	<script type="text/javascript" src="assets/utils.js"></script>
 	<script type="text/javascript" src="assets/debug.js"></script>
@@ -15,16 +15,27 @@
 
 <body>
 	<div class="conatiner">
-		<div class="row" id="toolbar">
-			<ul class="nav">
-				<li class="three columns"><button name="button" id="susResBtn">Resume Context</button></li>
-				<li class="three columns">BPM: <input type="number" id="bpmInput" value="120" /></li>
-				<li class="three columns">
-					Frequency of Metronome :<input type="range" min="50" max="5000" id="clickFreq" />
-				</li>
-			</ul>
+		<ul class="nav card row">
+			<li class="three columns"><button name="button" class="button-primary" id="susResBtn">Resume Context</button></li>
+			<li class="three columns">BPM: <input type="number" id="bpmInput" value="120" /></li>
+			<li class="three columns">
+				Frequency of Metronome :<input type="range" min="50" max="5000" id="clickFreq" />
+			</li>
+		</ul>
+		<hr>
+		<div class="row">
+			<div class="six columns card center" id="newTrack">
+				<input type="file" />
+				<select id="selectTrack">
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+				<input id="startTime" placeholder="StartTime" />
+				<button class="button-primary" id="newTrackButton">New Track</button>
+			</div>
 		</div>
-		<div id="debug"></div>
+		<hr>
+		<div class="card" id="debug"></div>
 	</div>
 
 </body>

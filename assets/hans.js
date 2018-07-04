@@ -9,8 +9,9 @@
 		//Variables here
 		let bpm = 120
 		let clickFreq = 2500
-		var nextNotetime = audioContext.currentTime
+		let nextNotetime = audioContext.currentTime
 		let utils = new Utils()
+		let sampleHopper = []
 
 
 
@@ -26,6 +27,12 @@
 
 		}
 
+		this.schedule = function (track) {
+			console.log(sampleHopper)
+			console.log(track)
+			sampleHopper.push(track)
+		}
+		let schedule = this.schedule
 
 		//Public Functions
 		this.getBPM = function () {
@@ -45,15 +52,15 @@
 			clickFreq = freq
 		}
 
-		this.schedule = function () {
+		this.scheduleLoop = function () {
 			while (nextNotetime < audioContext.currentTime + 0.01) {
 				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
 				//nextNote.innerHTML = nextNotetime;
 				playSound(nextNotetime);
 			}
-			timerID = window.setTimeout(schedule, 50.0);
+			timerID = window.setTimeout(scheduleLoop, 50.0);
 		}
-		let schedule = this.schedule
+		let scheduleLoop = this.scheduleLoop
 
 
 

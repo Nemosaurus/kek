@@ -7,11 +7,41 @@ document.addEventListener("DOMContentLoaded", function () {
 	var debuger = new Debug(audioContext)
 
 	debuger.createDebugTable()
-	hans.schedule()
+	hans.scheduleLoop()
+
+
+
+	function createTrack(file) {}
 
 
 
 
+
+
+
+
+
+	function newTrack(trackNo, track) {
+		console.log('new track inc' + trackNo)
+		var fileReader = new FileReader()
+		fileReader.onloadend = function (e) {
+			var arrayBuffer = e.target.result
+			context.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+				if (trackNo === 1) {
+					source1 = new BuffAudio(context, audioBuffer)
+				} else if (trackNo === 2) {
+					source2 = new BuffAudio(context, audioBuffer)
+				} else {
+					console.error("this, shouldn't happen ever.. use 1 or two for your track number...")
+				}
+			})
+		}
+		fileReader.readAsArrayBuffer(track)
+	}
+
+	document.getElementById('newTrackButton').onclick = function () {
+
+	}
 
 	document.getElementById('bpmInput').onchange = function () {
 		hans.setBPM(document.getElementById('bpmInput').value)
