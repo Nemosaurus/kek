@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById('newTrackButton').onclick = function () {
 		let trackNo = document.getElementById('selectTrack').value
 		let track = document.getElementById('trackMP3').files[0]
-		console.log("track No: " + trackNo + "\nFile: " + track)
+		let startTime = document.getElementById('startTime').value
+		console.log("track No: " + trackNo + "\nFile: " + track + "\nStart at: " + startTime)
 		console.log(track)
 		newTrack(parseInt(trackNo), track)
 	}
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		hans.setBPM(document.getElementById('bpmInput').value)
 		console.log("bpm: " + hans.getBPM)
 	}
+
 	document.getElementById('metronomeMute').onclick = function () {
 		hans.toggleMetronome()
 	}
