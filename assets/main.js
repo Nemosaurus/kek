@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	var reader = new FileReader();
 
-	function newTrack(trackNo, track) {
+	function newTrack(trackNo, track, startTime) {
 
 		console.log('new track inc' + trackNo)
 		var fileReader = new FileReader()
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
 				if (trackNo === 1) {
 					source1 = new BuffAudio(audioContext, audioBuffer)
-					source1.play()
+					hans.schedule(source1, startTime)
 				} else if (trackNo === 2) {
 					source2 = new BuffAudio(audioContext, audioBuffer)
-					source2.play()
+					hans.schedule(source2, startTime)
 				} else {
 					console.error("this, shouldn't happen ever.. use 1 or two for your track number...")
 				}
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		let startTime = document.getElementById('startTime').value
 		console.log("track No: " + trackNo + "\nFile: " + track + "\nStart at: " + startTime)
 		console.log(track)
-		newTrack(parseInt(trackNo), track)
+		newTrack(parseInt(trackNo), track, startTime)
 	}
 
 	document.getElementById('bpmInput').onchange = function () {

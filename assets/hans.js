@@ -59,23 +59,31 @@
 
 		this.scheduleLoop = function () {
 			// Array of {obj.startTime & obj.track}
-			sampleHopper.forEach(function (obj) {
-				track = obj.track
-				startTime = obj.startTime
-				//set time for each element
-				//loop through tracks left to schedule
-				while (nextNotetime < audioContext.currentTime + 0.01) {
-					nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
-					//				schedule(track, startTime)
-
-					if (metronomeMute === false) {
-						playSound(nextNotetime);
+			//			sampleHopper.forEach(function (obj) {
+			//				track = obj.track
+			//				startTime = obj.startTime
+			//set time for each element
+			//loop through tracks left to schedule
+			while (nextNotetime < audioContext.currentTime + 0.01) {
+				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
+				sampleHopper.forEach(function (obj) {
+					track = obj.track
+					startTime = obj.startTime
+					//wait to schedule 
+					if (audioContext.currentTime + 0.01 > startTime) {
+						track.play(startTime);
 					}
+				})
+				//				schedule(track, startTime)
+
+				if (metronomeMute === false) {
+					playSound(nextNotetime);
 				}
-				timerID = window.setTimeout(scheduleLoop, 50.0);
-			})
-			let scheduleLoop = this.scheduleLoop
+			}
+			timerID = window.setTimeout(scheduleLoop, 50.0);
+			//			})
 		}
+		let scheduleLoop = this.scheduleLoop
 	}
 
 	window.Hans = Hans
