@@ -9,28 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
 	debuger.createDebugTable()
 	hans.scheduleLoop()
 
-
-
 	function createTrack(file) {}
 
 
-
-
-
-
-
-
+	var reader = new FileReader();
 
 	function newTrack(trackNo, track) {
 		console.log('new track inc' + trackNo)
 		var fileReader = new FileReader()
 		fileReader.onloadend = function (e) {
 			var arrayBuffer = e.target.result
-			context.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
 				if (trackNo === 1) {
-					source1 = new BuffAudio(context, audioBuffer)
+					source1 = new BuffAudio(audioContext, audioBuffer)
 				} else if (trackNo === 2) {
-					source2 = new BuffAudio(context, audioBuffer)
+					source2 = new BuffAudio(audioContext, audioBuffer)
 				} else {
 					console.error("this, shouldn't happen ever.. use 1 or two for your track number...")
 				}
@@ -40,7 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	document.getElementById('newTrackButton').onclick = function () {
-
+		let trackNo = document.getElementById('selectTrack').value
+		let track = document.getElementById('trackMP3').files[0]
+		console.log("track No: " + trackNo + "\nFile: " + track)
+		console.log(track)
+		newTrack(parseInt(trackNo), track)
 	}
 
 	document.getElementById('bpmInput').onchange = function () {
