@@ -12,9 +12,7 @@
 		let nextNotetime = audioContext.currentTime
 		let utils = new Utils()
 		let sampleHopper = []
-
-
-
+		let metronomeMute = false
 
 		//Private Functions
 		function playSound(time) {
@@ -23,7 +21,12 @@
 			clickOsc.frequency.value = getClickFreq();
 			clickOsc.start(time);
 			clickOsc.stop(time + 0.01);
+		}
 
+		this.toggleMetronome = function () {
+			metronomeMute = !metronomeMute
+			console.log(metronomeMute)
+			console.log(!metronomeMute)
 		}
 
 		this.schedule = function (track) {
@@ -55,7 +58,9 @@
 			while (nextNotetime < audioContext.currentTime + 0.01) {
 				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
 				//nextNote.innerHTML = nextNotetime;
-				playSound(nextNotetime);
+				if (metronomeMute === false) {
+					playSound(nextNotetime);
+				}
 			}
 			timerID = window.setTimeout(scheduleLoop, 50.0);
 		}

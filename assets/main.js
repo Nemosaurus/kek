@@ -47,6 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		hans.setBPM(document.getElementById('bpmInput').value)
 		console.log("bpm: " + hans.getBPM)
 	}
+	document.getElementById('metronomeMute').onclick = function () {
+		hans.toggleMetronome()
+	}
 
 	document.getElementById('clickFreq').onchange = function () {
 		hans.setClickFreq(document.getElementById('clickFreq').value)
