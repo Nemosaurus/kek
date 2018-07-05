@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	var reader = new FileReader();
 
 	function newTrack(trackNo, track) {
+
 		console.log('new track inc' + trackNo)
 		var fileReader = new FileReader()
 		fileReader.onloadend = function (e) {
@@ -22,8 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
 				if (trackNo === 1) {
 					source1 = new BuffAudio(audioContext, audioBuffer)
+					source1.play()
 				} else if (trackNo === 2) {
 					source2 = new BuffAudio(audioContext, audioBuffer)
+					source2.play()
 				} else {
 					console.error("this, shouldn't happen ever.. use 1 or two for your track number...")
 				}

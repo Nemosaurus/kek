@@ -19,7 +19,6 @@
 		//Private Functions
 		function playSound(time) {
 			let clickOsc = audioContext.createOscillator();
-			console.log(clickOsc)
 			clickOsc.connect(audioContext.destination);
 			clickOsc.frequency.value = getClickFreq();
 			clickOsc.start(time);
