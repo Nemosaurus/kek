@@ -9,16 +9,11 @@
 (function () {
 	var Debug = function (audioContext) {
 
-
 		var debugDiv = document.getElementById("debug")
 		var debugItems = []
 
 		var utils = new Utils()
 		utils.bpmToNoteDurration(120)
-
-
-
-
 
 		this.createDebugTable = function () {
 

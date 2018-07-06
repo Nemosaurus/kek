@@ -22,10 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
 			var arrayBuffer = e.target.result
 			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
 				if (trackNo === 1) {
-					source1 = new BuffAudio(audioContext, audioBuffer)
+					source1 = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
+					source1.buffer = audioBuffer
+					source1.connect(audioContext.destination)
+					console.log(audioBuffer)
 					hans.schedule(source1, startTime)
 				} else if (trackNo === 2) {
-					source2 = new BuffAudio(audioContext, audioBuffer)
+					source2 = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
+					source2.buffer = audioBuffer
+					source2.connect(audioContext.destination)
+					console.log(audioBuffer)
 					hans.schedule(source2, startTime)
 				} else {
 					console.error("this, shouldn't happen ever.. use 1 or two for your track number...")

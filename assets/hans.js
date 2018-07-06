@@ -30,12 +30,13 @@
 		}
 
 		this.schedule = function (track, startTime) {
-			console.log(sampleHopper)
-			console.log(track)
+
 			sampleHopper.push({
 				"track": track,
 				"startTime": startTime
 			})
+			console.log(sampleHopper)
+			console.log(track)
 		}
 		let schedule = this.schedule
 
@@ -58,20 +59,16 @@
 		}
 
 		this.scheduleLoop = function () {
-			// Array of {obj.startTime & obj.track}
-			//			sampleHopper.forEach(function (obj) {
-			//				track = obj.track
-			//				startTime = obj.startTime
-			//set time for each element
-			//loop through tracks left to schedule
+			//			console.log(audioContext.currentTime)
 			while (nextNotetime < audioContext.currentTime + 0.01) {
 				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
-				sampleHopper.forEach(function (obj) {
+				sampleHopper.forEach(function (obj, index) {
 					track = obj.track
 					startTime = obj.startTime
+					sampleHopper.splice(index, 1)
 					//wait to schedule 
 					if (audioContext.currentTime + 0.01 > startTime) {
-						track.play(startTime);
+						track.start(startTime);
 					}
 				})
 				//				schedule(track, startTime)
