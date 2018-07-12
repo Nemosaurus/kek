@@ -1,0 +1,89 @@
+:root {
+	--Bluez: #2D7DD2;
+	--Greenz: #97CC04;
+	--Yellowz: #EEB902;
+	--Orangez: #F45D01;
+	--Greyz: #474647;
+}
+
+ul.nav li {
+	display: inline-block;
+}
+
+ul.nav {
+	text-align: center;
+}
+
+td {
+	border: 1px solid black
+}
+
+.timeline {
+	height: 15em;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+}
+
+) #muzak {
+	border: 3px solid var(--Greyz);
+	padding: 10px;
+}
+
+.center {
+	margin: auto;
+	text-align: center;
+}
+
+#currentTime {
+	margin: auto;
+	text-align: left;
+}
+
+.stop {
+	background-color: var(--Orangez);
+}
+
+.start {
+	background-color: var(--Greenz);
+}
+
+.reset {
+	background-color: var(--Bluez);
+}
+
+.card {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 25px;
+	border: 1px solid black;
+	padding: 25px;
+	text-align: center
+}
+
+html,
+body {
+/*	background: #3494E6;*/
+	/* fallback for old browsers */
+/*	background: -webkit-linear-gradient(to right, #EC6EAD, #3494E6);*/
+	/* Chrome 10-25, Safari 5.1-6 */
+/*	background: linear-gradient(to right, #EC6EAD, #3494E6);*/
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+div {
+	padding: 0px;
+	margin: 0px;
+}
+
+canvas {}
+
+.canvas-container {
+	width: 100%;
+	overflow-x: auto;
+	white-space: nowrap;
+}
