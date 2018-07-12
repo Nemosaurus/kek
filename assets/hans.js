@@ -7,6 +7,7 @@
 	var Hans = function (audioContext) {
 
 		//Variables here
+        let testData = []
 		let bpm = 120
 		let clickFreq = 2500
 		let nextNotetime = audioContext.currentTime
@@ -29,8 +30,10 @@
 			console.log(!metronomeMute)
 		}
 
-		this.schedule = function (track, startTime) {
-
+        //[1,1,1] Init to
+        //[bar, beat, 64th beat]
+		this.schedule = function (track, fTime) {
+            let startTime = utils.getBeatTime(fTime, 4, bpm)
 			sampleHopper.push({
 				"track": track,
 				"startTime": startTime
@@ -57,6 +60,22 @@
 		this.setClickFreq = function (freq) {
 			clickFreq = freq
 		}
+        this.getTestData = function () {
+            let res = []
+            testData.forEach(function(element, index, array) {
+                console.log("tick @ " + element)
+                if (typeof array[index + 1] != undefined){
+                    res.push(array[index + 1] - array[index])
+                    console.log(res)
+                }
+            })
+            return res
+        }
+        
+          //For the metronome.
+        //Schedule it like everything else. 
+        //use the new Ftime conversion 
+        // yee boi
 
 		this.scheduleLoop = function () {
 			//			console.log(audioContext.currentTime)
@@ -74,11 +93,11 @@
 				//				schedule(track, startTime)
 
 				if (metronomeMute === false) {
+                    testData.push(performance.now())
 					playSound(nextNotetime);
 				}
 			}
 			timerID = window.setTimeout(scheduleLoop, 50.0);
-			//			})
 		}
 		let scheduleLoop = this.scheduleLoop
 	}

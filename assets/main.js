@@ -58,6 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById('metronomeMute').onclick = function () {
 		hans.toggleMetronome()
 	}
+    
+	document.getElementById('getTestData').onclick = function () {
+		document.getElementById('testData').innerHTML = hans.getTestData()
+	}
 
 	document.getElementById('clickFreq').onchange = function () {
 		hans.setClickFreq(document.getElementById('clickFreq').value)
