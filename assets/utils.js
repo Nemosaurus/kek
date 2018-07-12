@@ -1,10 +1,9 @@
 /*
-Use these for stuff
+	//Coverting computers to art.
 */
 
 (function () {
 	var Utils = function (audioContext) {
-
 
 		/*****
 		 * Gets you the durration of one beat based on the BPM of the project
@@ -48,27 +47,45 @@ Use these for stuff
 		 *   @param   {number} - (Optional) time in seconds. Defaults to currentTime
 		 *   @returns {array}  - Formal Time   
 		 */
-		this.getFancyTime = function (beatsPerBar, bpm, optTime) {
-			if (typeof optTime === undefined) {
-				optTime = audioContext.currentTime;
-				console.log("time " + optTime)
-			}
-			let measures = 1
-			let beats = 1
-			//			let sixtyFourths = [0, 1]
-			measures = parseInt((optTime / this.bpmToNoteDurration(bpm)) / 4)
-			beats = parseInt((optTime / this.bpmToNoteDurration(bpm)) % 4)
-			sixtyFourths = String(((optTime / this.bpmToNoteDurration(bpm)) / 4).toFixed(4)).split(",")
-
-
+		this.getFancyTime = function (beatsPerBar, bpm, time) {
+			measures = parseInt((time / this.bpmToNoteDurration(bpm)) / 4)
+			beats = parseInt((time / this.bpmToNoteDurration(bpm)) % 4)
+			//			sixtyFourths = String(((time / this.bpmToNoteDurration(bpm)) / 4).toFixed(4)).split(",")
 			let fTime = [measures, beats, 0]
 			return fTime
-
-
+		}
+		/*
+		 *
+		 *WIP used to load new tracks
+		 *Not sure if this should kick off scheduling or not. 
+		 * Probably not. 
+		 *
+		 *
+		 */
+		this.loadTrack = function (trackPath) {
+			console.log('new track inc' + trackPath)
+			arrayBuffer = previewFile(trackPath)
+			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+				source = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
+				source.buffer = audioBuffer
+				source.connect(audioContext.destination)
+				return source
+			})
 
 		}
 
+		function previewFile(filePath) {
+			var reader = new FileReader();
+			reader.onloadend = function () {
+				return (reader.result); //this is an ArrayBuffer
+			}
+			reader.readAsArrayBuffer(filePath);
+		}
+
+
+
 	}
+
 	window.Utils = Utils
 
 })()

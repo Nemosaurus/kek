@@ -7,13 +7,15 @@
 	var Hans = function (audioContext) {
 
 		//Variables here
-        let testData = []
+		let testData = []
 		let bpm = 120
 		let clickFreq = 2500
 		let nextNotetime = audioContext.currentTime
 		let utils = new Utils()
 		let sampleHopper = []
 		let metronomeMute = false
+
+		let clickSample = audioContext.createAudioB
 
 		//Private Functions
 		function playSound(time) {
@@ -30,10 +32,10 @@
 			console.log(!metronomeMute)
 		}
 
-        //[1,1,1] Init to
-        //[bar, beat, 64th beat]
+		//[1,1,1] Init to
+		//[bar, beat, 64th beat]
 		this.schedule = function (track, fTime) {
-            let startTime = utils.getBeatTime(fTime, 4, bpm)
+			let startTime = utils.getBeatTime(fTime, 4, bpm)
 			sampleHopper.push({
 				"track": track,
 				"startTime": startTime
@@ -60,22 +62,22 @@
 		this.setClickFreq = function (freq) {
 			clickFreq = freq
 		}
-        this.getTestData = function () {
-            let res = []
-            testData.forEach(function(element, index, array) {
-                console.log("tick @ " + element)
-                if (typeof array[index + 1] != undefined){
-                    res.push(array[index + 1] - array[index])
-                    console.log(res)
-                }
-            })
-            return res
-        }
-        
-          //For the metronome.
-        //Schedule it like everything else. 
-        //use the new Ftime conversion 
-        // yee boi
+		this.getTestData = function () {
+			let res = []
+			testData.forEach(function (element, index, array) {
+				console.log("tick @ " + element)
+				if (typeof array[index + 1] != undefined) {
+					res.push(array[index + 1] - array[index])
+					console.log(res)
+				}
+			})
+			return res
+		}
+
+		   //For the metronome.
+		//Schedule it like everything else. 
+		//use the new Ftime conversion 
+		// yee boi
 
 		this.scheduleLoop = function () {
 			//			console.log(audioContext.currentTime)
@@ -93,7 +95,12 @@
 				//				schedule(track, startTime)
 
 				if (metronomeMute === false) {
-                    testData.push(performance.now())
+					testData.push(performance.now())
+					this.schedule(utils.loadTrack('Click1.wav'), ) //finish this yo
+					// schedule the click track dummy
+					// dont just play it. 
+
+
 					playSound(nextNotetime);
 				}
 			}
