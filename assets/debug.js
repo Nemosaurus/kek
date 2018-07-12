@@ -65,13 +65,6 @@
 			lab5.innerHTML = "Memory % Allocated :"
 			tBody.appendChild(tr5)
 
-			let tr6 = document.createElement("tr")
-			let lab6 = document.createElement("td")
-			let res6 = document.createElement("td")
-			tr6.appendChild(lab6)
-			tr6.appendChild(res6)
-			lab6.innerHTML = "FormalTime :"
-			tBody.appendChild(tr6)
 
 			setInterval(function () {
 				res1.innerHTML = audioContext.currentTime
@@ -80,8 +73,8 @@
 				res4.innerHTML = audioContext.destination.numberOfInputs + " / " + audioContext.destination.numberOfOutputs + " / " +
 					audioContext.destination.maxChannelCount
 				res5.innerHTML = (performance.memory.usedJSHeapSize / performance.memory.totalJSHeapSize * 100).toFixed(2) + "%"
-				res6.innerHTML = utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime)
-			}, 300);
+				document.getElementById('FancyTime').innerHTML = utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime)
+			}, 80);
 
 
 		}

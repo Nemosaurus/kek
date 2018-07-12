@@ -5,7 +5,16 @@ Use these for stuff
 (function () {
 	var Utils = function (audioContext) {
 
-		//TODO: RENAME TO BEAT DURRATION
+
+		/*****
+		 * Gets you the durration of one beat based on the BPM of the project
+		 * ex: 60 bpm -> 1s
+		 * ex: 120 bpm -> .5s
+		 *
+		 *    @param   {number} - BPM 
+		 *    @returns {number} - Seconds 
+		 */
+		//TODO: RENAME TO BEAT DURRATION ( more accurate)
 		this.bpmToNoteDurration = function (bpm) {
 			return 60 / bpm
 		}
@@ -46,14 +55,13 @@ Use these for stuff
 			}
 			let measures = 1
 			let beats = 1
-			let sixtyFourths = 1
+			//			let sixtyFourths = [0, 1]
 			measures = parseInt((optTime / this.bpmToNoteDurration(bpm)) / 4)
 			beats = parseInt((optTime / this.bpmToNoteDurration(bpm)) % 4)
-			//			console.log(beats)
-			//sixtyFourths = everything after decimal place
+			sixtyFourths = String(((optTime / this.bpmToNoteDurration(bpm)) / 4).toFixed(4)).split(",")
 
 
-			let fTime = [measures, beats, sixtyFourths]
+			let fTime = [measures, beats, 0]
 			return fTime
 
 
