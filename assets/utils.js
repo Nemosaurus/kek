@@ -3,6 +3,8 @@
 */
 
 (function () {
+	//TODO Talk about passing in BPM Beats per Bar and other things as a constructor
+	//take away dynamic changes to tempo and time signatures? 
 	var Utils = function (audioContext) {
 
 		/*****
@@ -54,6 +56,35 @@
 			let fTime = [measures, beats, 0]
 			return fTime
 		}
+
+		/****
+		 *
+		 * Adds two formal time arrays together
+		 * Carries over the extra 64th notes and beats per bar
+		 * 
+		 *    @param    {array}  - First Formal Time 
+		 *    @param    {array}  - Second Formal Time
+		 *		@param    {number} - Number of Beats in one bar/measure
+		 *		@returns  {array}  - Sum in Formal Time
+		 */
+		this.addBeats = function (fTime1, fTime2, beatsPerBar) {
+			if (fTime1.length != 3 || fTime2.length != 3) {
+				return new Error('Formal Time should only have a length of 3')
+			}
+			beats = fTime1[1] + fTime2[1]
+			barz = fTime1[0] + fTime2[0]
+			sixfour = fTime1[2] + fTime2[2]
+			while (sixfour > 64) {
+				sixfour -= 64
+				beats++
+			}
+			while (beats > beatsPerBar) {
+				beats -= beatsPerBar
+				barz++
+			}
+			console.log('addBeats returning ' + [barz, beats, sixfour] + " what we got is " + fTime1 + " : " + fTime2 + " : " + beatsPerBar)
+			return [barz, beats, sixfour]
+		}
 		/*
 		 *
 		 *WIP used to load new tracks
@@ -62,24 +93,25 @@
 		 *
 		 *
 		 */
-		this.loadTrack = function (trackPath) {
-			console.log('new track inc' + trackPath)
-			arrayBuffer = previewFile(trackPath)
-			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
-				source = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
-				source.buffer = audioBuffer
-				source.connect(audioContext.destination)
-				return source
-			})
+//		this.loadTrack = function (trackPath) {
+//			console.log('new track inc' + trackPath)
+//			arrayBuffer = openFile(trackPath)
+//			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+//				source = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
+//				source.buffer = audioBuffer
+//				source.connect(audioContext.destination)
+//				return source
+//			})
+//
+//		}
 
-		}
-
-		function previewFile(filePath) {
+		function openFile(trackPath) {
 			var reader = new FileReader();
 			reader.onloadend = function () {
 				return (reader.result); //this is an ArrayBuffer
 			}
-			reader.readAsArrayBuffer(filePath);
+			
+			reader.readAsArrayBuffer(trackPath);
 		}
 
 

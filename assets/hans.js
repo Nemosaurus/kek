@@ -74,10 +74,8 @@
 			return res
 		}
 
-		   //For the metronome.
-		//Schedule it like everything else. 
-		//use the new Ftime conversion 
-		// yee boi
+		//For the metronome.
+
 
 		this.scheduleLoop = function () {
 			//			console.log(audioContext.currentTime)
@@ -87,7 +85,7 @@
 					track = obj.track
 					startTime = obj.startTime
 					sampleHopper.splice(index, 1)
-					//wait to schedule 
+					//wait to schedule until the last possible moment.
 					if (audioContext.currentTime + 0.01 > startTime) {
 						track.start(startTime);
 					}
@@ -95,16 +93,25 @@
 				//				schedule(track, startTime)
 
 				if (metronomeMute === false) {
+					//schedule next bar.
+					console.log("next beat is: " + (utils.addBeats(utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime), [1, 2, 1], 4)).toString())
+
 					testData.push(performance.now())
-					this.schedule(utils.loadTrack('Click1.wav'), ) //finish this yo
+
+					//					this.schedule(utils.loadTrack('Click1.wav'), 0)
+					//probably shouldnt schedule it here
+					//finish this yo
 					// schedule the click track dummy
 					// dont just play it. 
+					//Schedule it like everything else. 
+					//use the new Ftime conversion 
+					// yee boi
 
 
 					playSound(nextNotetime);
 				}
 			}
-			timerID = window.setTimeout(scheduleLoop, 50.0);
+			timerID = window.setTimeout(scheduleLoop, 10.0);
 		}
 		let scheduleLoop = this.scheduleLoop
 	}
