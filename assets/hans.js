@@ -55,7 +55,7 @@
 			let clickOsc = audioContext.createOscillator();
 			clickOsc.connect(audioContext.destination);
 			clickOsc.frequency.value = getClickFreq();
-			console.log(clickOsc.frequency.value)
+			//			console.log(clickOsc.frequency.value)			
 			clickOsc.start(time);
 			clickOsc.stop(time + 0.01);
 		}
@@ -74,15 +74,15 @@
 		}
 
 		this.scheduleLoop = function () {
-			while (nextNotetime < audioContext.currentTime + utils.bpmToNoteDurration(120)) {
-				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
+			while (nextNotetime < audioContext.currentTime + (utils.bpmToNoteDurration(120)) / 32) {
+				nextNotetime += (utils.bpmToNoteDurration(120)) / 32; //set bpm here
 				fTimeDisplay.innerHTML = utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime)
 				sampleHopper.forEach(function (obj, index) {
 					track = obj.track
 					startTime = obj.startTime
 					sampleHopper.splice(index, 1)
 					//schedule the next bar
-					if ((audioContext.currentTime + utils.bpmToNoteDurration(120)) > startTime) {
+					if ((audioContext.currentTime + (utils.bpmToNoteDurration(120)) / 32) > startTime) {
 						track.start(startTime);
 					}
 				})

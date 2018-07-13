@@ -52,9 +52,8 @@
 		this.getFancyTime = function (beatsPerBar, bpm, time) {
 			measures = parseInt(1 + (time / this.bpmToNoteDurration(bpm)) / 4)
 			beats = parseInt(1 + (time / this.bpmToNoteDurration(bpm)) % 4)
-			one = this.bpmToNoteDurration(bpm) / 64
-			//			console.log(one)
-			sixtyFourths = (((time / this.bpmToNoteDurration(bpm)) % 4) % 1).toFixed(7)
+			sixtyFourths = 1 + (parseInt(time / this.bpmToNoteDurration(bpm) * 64) % 64)
+			//			console.log(sixtyFourths)
 			let fTime = [measures, beats, sixtyFourths]
 			return fTime
 		}
