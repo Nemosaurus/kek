@@ -50,12 +50,19 @@
 		 *   @returns {array}  - Formal Time   
 		 */
 		this.getFancyTime = function (beatsPerBar, bpm, time) {
-			measures = parseInt((time / this.bpmToNoteDurration(bpm)) / 4)
-			beats = parseInt((time / this.bpmToNoteDurration(bpm)) % 4)
-			//			sixtyFourths = String(((time / this.bpmToNoteDurration(bpm)) / 4).toFixed(4)).split(",")
-			let fTime = [measures, beats, 0]
+			measures = parseInt(1 + (time / this.bpmToNoteDurration(bpm)) / 4)
+			beats = parseInt(1 + (time / this.bpmToNoteDurration(bpm)) % 4)
+			one = this.bpmToNoteDurration(bpm) / 64
+			//			console.log(one)
+			sixtyFourths = (((time / this.bpmToNoteDurration(bpm)) % 4) % 1).toFixed(7)
+			let fTime = [measures, beats, sixtyFourths]
 			return fTime
 		}
+		//1 - 1 - 1
+		//1 - 1 - 2
+		//1 - 1 - ..
+		//1 - 1 - 64
+		//1 - 2 - 1
 
 		/****
 		 *
@@ -71,9 +78,9 @@
 			if (fTime1.length != 3 || fTime2.length != 3) {
 				return new Error('Formal Time should only have a length of 3')
 			}
-			beats = fTime1[1] + fTime2[1]
-			barz = fTime1[0] + fTime2[0]
-			sixfour = fTime1[2] + fTime2[2]
+			beats = fTime1[1] + (fTime2[1] - 1)
+			barz = fTime1[0] + (fTime2[0] - 1)
+			sixfour = fTime1[2] + (fTime2[2] - 1)
 			while (sixfour > 64) {
 				sixfour -= 64
 				beats++
@@ -93,24 +100,24 @@
 		 *
 		 *
 		 */
-//		this.loadTrack = function (trackPath) {
-//			console.log('new track inc' + trackPath)
-//			arrayBuffer = openFile(trackPath)
-//			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
-//				source = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
-//				source.buffer = audioBuffer
-//				source.connect(audioContext.destination)
-//				return source
-//			})
-//
-//		}
+		//		this.loadTrack = function (trackPath) {
+		//			console.log('new track inc' + trackPath)
+		//			arrayBuffer = openFile(trackPath)
+		//			audioContext.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+		//				source = new AudioBufferSourceNode(audioContext) //BuffAudio(audioContext, audioBuffer)
+		//				source.buffer = audioBuffer
+		//				source.connect(audioContext.destination)
+		//				return source
+		//			})
+		//
+		//		}
 
 		function openFile(trackPath) {
 			var reader = new FileReader();
 			reader.onloadend = function () {
 				return (reader.result); //this is an ArrayBuffer
 			}
-			
+
 			reader.readAsArrayBuffer(trackPath);
 		}
 

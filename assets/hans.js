@@ -14,34 +14,21 @@
 		let utils = new Utils()
 		let sampleHopper = []
 		let metronomeMute = false
-
-		let clickSample = audioContext.createAudioB
-
-		//Private Functions
-		function playSound(time) {
-			let clickOsc = audioContext.createOscillator();
-			clickOsc.connect(audioContext.destination);
-			clickOsc.frequency.value = getClickFreq();
-			clickOsc.start(time);
-			clickOsc.stop(time + 0.01);
-		}
+		let fTimeDisplay = document.getElementById('FancyTime')
+		let clickSample = audioContext.createAudioBuffer
+		let clickOsc = audioContext.createOscillator();
+		clickOsc.connect(audioContext.destination);
 
 		this.toggleMetronome = function () {
 			metronomeMute = !metronomeMute
-			console.log(metronomeMute)
-			console.log(!metronomeMute)
 		}
 
-		//[1,1,1] Init to
-		//[bar, beat, 64th beat]
 		this.schedule = function (track, fTime) {
 			let startTime = utils.getBeatTime(fTime, 4, bpm)
 			sampleHopper.push({
 				"track": track,
 				"startTime": startTime
 			})
-			console.log(sampleHopper)
-			console.log(track)
 		}
 		let schedule = this.schedule
 
@@ -51,6 +38,7 @@
 		}
 
 		this.setBPM = function (bpmToSet) {
+			console.log('hans')
 			bpm = bpmToSet
 		}
 
@@ -62,56 +50,52 @@
 		this.setClickFreq = function (freq) {
 			clickFreq = freq
 		}
-		this.getTestData = function () {
-			let res = []
-			testData.forEach(function (element, index, array) {
-				console.log("tick @ " + element)
-				if (typeof array[index + 1] != undefined) {
-					res.push(array[index + 1] - array[index])
-					console.log(res)
-				}
-			})
-			return res
+
+		function click(time) {
+			let clickOsc = audioContext.createOscillator();
+			clickOsc.connect(audioContext.destination);
+			clickOsc.frequency.value = getClickFreq();
+			console.log(clickOsc.frequency.value)
+			clickOsc.start(time);
+			clickOsc.stop(time + 0.01);
+		}
+		//		this.getTestData = function () {
+		//			let res = []
+		//			testData.forEach(function (element, index, array) {
+		//				if (typeof array[index + 1] != undefined) {
+		//					res.push(array[index + 1] - array[index])
+		//					//					console.log(res)
+		//				}
+		//			})
+		//			return res
+		//		}
+		this.currentFormalTime = function () {
+			utils.getFancyTime(audioContext.currentTime, )
 		}
 
-		//For the metronome.
-
-
 		this.scheduleLoop = function () {
-			//			console.log(audioContext.currentTime)
-			while (nextNotetime < audioContext.currentTime + 0.01) {
+			while (nextNotetime < audioContext.currentTime + utils.bpmToNoteDurration(120)) {
 				nextNotetime += utils.bpmToNoteDurration(bpm); //set bpm here
+				fTimeDisplay.innerHTML = utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime)
 				sampleHopper.forEach(function (obj, index) {
 					track = obj.track
 					startTime = obj.startTime
 					sampleHopper.splice(index, 1)
-					//wait to schedule until the last possible moment.
-					if (audioContext.currentTime + 0.01 > startTime) {
+					//schedule the next bar
+					if ((audioContext.currentTime + utils.bpmToNoteDurration(120)) > startTime) {
 						track.start(startTime);
 					}
 				})
-				//				schedule(track, startTime)
 
 				if (metronomeMute === false) {
-					//schedule next bar.
-					console.log("next beat is: " + (utils.addBeats(utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime), [1, 2, 1], 4)).toString())
-
-					testData.push(performance.now())
-
-					//					this.schedule(utils.loadTrack('Click1.wav'), 0)
-					//probably shouldnt schedule it here
-					//finish this yo
-					// schedule the click track dummy
-					// dont just play it. 
-					//Schedule it like everything else. 
-					//use the new Ftime conversion 
-					// yee boi
-
-
-					playSound(nextNotetime);
+					//schedule next click.
+					//TODO get a click buffer lol uncomment the next line and change the `cick` varaiable 
+					//this.schedule(click, (utils.addBeats(utils.getFancyTime(4, document.getElementById('bpmInput').value, audioContext.currentTime), [1, 2, 1], 4)))
+					//					testData.push(performance.now())    //use this with this.getTestData() 
+					click(nextNotetime);
 				}
 			}
-			timerID = window.setTimeout(scheduleLoop, 10.0);
+			timerID = window.setTimeout(scheduleLoop, 40.0);
 		}
 		let scheduleLoop = this.scheduleLoop
 	}

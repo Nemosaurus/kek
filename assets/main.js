@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	audioContext.suspend()
 	var utils = new Utils(audioContext)
 	var hans = new Hans(audioContext)
-	var debuger = new Debug(audioContext)
+	//	var debuger = new Debug(audioContext)
 
-	debuger.createDebugTable()
+	//	debuger.createDebugTable()
 	hans.scheduleLoop()
 
 	function createTrack(file) {}
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	document.getElementById('bpmInput').onchange = function () {
 		hans.setBPM(document.getElementById('bpmInput').value)
-		console.log("bpm: " + hans.getBPM)
+		console.log("bpm: " + hans.getBPM())
 	}
 
 	document.getElementById('metronomeMute').onclick = function () {
